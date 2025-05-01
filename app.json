@@ -1,30 +1,30 @@
 {
-    "name": "SubtitlesBot",
-    "description": "A simple subtitle bot made in python. Create your Fork now.",
-    "keywords": [
-        "telegram",
-        "subtitle",
-        "searcher",
-        "download"
-    ],
-    "website": "https://github.com/Anandpskerala/SubtitlesBot",
-    "repository": "https://github.com/Anandpskerala/SubtitlesBot",
-    "env": {
-        "BOT_TOKEN": {
-            "description": "Your bot token",
-            "value": ""
-        }
-      },
-"addons": [],
-"buildpacks": [
-  {
+  "name": "Subtitles Bot",
+  "description": "A simple subtitle bot made in python. Create your Fork now.",
+  "keywords": [
+    "telegram",
+    "subtitle",
+    "searcher",
+    "download"
+  ],
+  "website": "https://github.com/KL35Ronaldo/SubtitlesBot",
+  "repository": "https://github.com/KL35Ronaldo/SubtitlesBot",
+  "env": {
+    "BOT_TOKEN": {
+      "description": "Your bot token",
+      "value": ""
+    }
+  },
+  "addons": [],
+  "buildpacks": [
+    {
       "url": "heroku/python"
-  }
-],
-"formation": {
-  "worker": {
+    }
+  ],
+  "formation": {
+    "worker": {
       "quantity": 1,
       "size": "free"
+    }
   }
-}
 }

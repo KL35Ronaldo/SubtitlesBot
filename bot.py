@@ -1,46 +1,30 @@
+import os
 import logging
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                     level=logging.INFO)
+from pyrogram import Client, __version__
 
+BOT_TOKEN = os.environ.get("BOT_TOKEN")
+
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
 logger = logging.getLogger(__name__)
 
-from config import BOT_TOKEN
+class Bot(Client):
+    def __init__(self):
+        super().__init__(
+            "My_Bot",
+            bot_token=BOT_TOKEN,
+            plugins=dict(root="plugins"),
+            workers=100,
+            sleep_threshold=5
+        )
+    async def start(self):
+        await super().start()
+        logging.info(f"{self.me.first_name} with Pyrogram v-{__version__} started on {self.me.username}.")
 
-from telegram.ext import (
-    Updater,
-    CommandHandler,
-    CallbackQueryHandler,
-    MessageHandler,
-    Filters,
-    InlineQueryHandler
-)
+    async def stop(self, *args):
+        await super().stop()
+        logging.info("Bot stopped. Bye.")
 
-from commands import (
-    start,
-    searching
-)
-
-from inline import(
-    button,
-    inlinequery
-)
-
-
-def main():
-    updater = Updater(token=BOT_TOKEN, use_context=True, workers=8)
-    logger.info(f"SUCESSFULLY STARTED THE BOT IN {updater.bot.username}")
-    start_handler = CommandHandler('start', start)
-    search_handler = MessageHandler(Filters.text, searching)
-
-    dispatcher = updater.dispatcher
-    dispatcher.add_handler(start_handler)
-    dispatcher.add_handler(search_handler)
-    dispatcher.add_handler(CallbackQueryHandler(button))
-    dispatcher.add_handler(InlineQueryHandler(inlinequery))
-    updater.start_polling()
-    updater.idle()
-    updater.stop()
-
-
-if __name__ == "__main__":
-    main()
+Bot.run()
